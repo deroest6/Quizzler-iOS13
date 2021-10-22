@@ -16,17 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
 
-    func applyCornerRadius () {
-        @IBInspectable var cornerRadius: CGFloat {
-            set {
-                layer.cornerRadius = newValue
-            }
-            get {
-                return layer.cornerRadius
-            }
-        }
-    }
-    
     var quizBrain = QuizBrain()
     
     override func viewDidLoad() {
@@ -36,6 +25,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
+        trueButton.tintColor = UIColor.orange
         
         let userAnswer = sender.currentTitle //True, False
         let userGotItRight = quizBrain.checkAnswer(userAnswer!)
@@ -61,3 +51,37 @@ class ViewController: UIViewController {
     }
 }
 
+    
+
+// Adds additional options for modifying buttons in the UI
+@IBDesignable extension UIButton {
+
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
+}
