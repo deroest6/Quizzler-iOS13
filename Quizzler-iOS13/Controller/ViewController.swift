@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
-
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     var quizBrain = QuizBrain()
     
     override func viewDidLoad() {
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        trueButton.tintColor = UIColor.orange
+        trueButton.tintColor = UIColor.black
         
         let userAnswer = sender.currentTitle //True, False
         let userGotItRight = quizBrain.checkAnswer(userAnswer!)
@@ -46,12 +47,13 @@ class ViewController: UIViewController {
     func updateUI() {
         questionLabel.text = quizBrain.getQuestionText()
         progressBar.progress = quizBrain.getProgress()
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
     }
 }
 
-    
+
 
 // Adds additional options for modifying buttons in the UI
 @IBDesignable extension UIButton {
