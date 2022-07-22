@@ -1,9 +1,5 @@
 //
-//  ViewController.swift
-//  Quizzler-iOS13
-//
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Quizzler
 //
 
 import UIKit
@@ -13,9 +9,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var choiceOne: UIButton!
+    @IBOutlet weak var choiceTwo: UIButton!
+    @IBOutlet weak var choiceThree: UIButton!
     
     var quizBrain = QuizBrain()
     
@@ -25,8 +22,9 @@ class ViewController: UIViewController {
         updateUI()
     }
     
+    //Checks for true or false answer and updates UI based on user answer
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        trueButton.tintColor = UIColor.black
+       //trueButton.tintColor = UIColor.black
         
         let userAnswer = sender.currentTitle //True, False
         let userGotItRight = quizBrain.checkAnswer(userAnswer!)
@@ -39,23 +37,32 @@ class ViewController: UIViewController {
         
         quizBrain.nextQuestion()
         
+        //Places a small delay on updating UI elements
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             self.updateUI()
         }
     }
     
+    //Loads quiz question data upon app initialization
     func updateUI() {
         questionLabel.text = quizBrain.getQuestionText()
+        
+        choiceOne.titleLabel = quizBrain.quiz[0]
+        choiceTwo.title = quizBrain.quiz[1]
+        choiceThree.title = quizBrain.quiz[2]
+        
         progressBar.progress = quizBrain.getProgress()
         scoreLabel.text = "Score: \(quizBrain.getScore())"
-        trueButton.backgroundColor = UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
+        
+        choiceOne.backgroundColor = UIColor.clear
+        choiceTwo.backgroundColor = UIColor.clear
+        choiceThree.backgroundColor = UIColor.clear
     }
 }
 
 
 
-// Adds additional options for modifying buttons in the UI
+// Adds additional options for modifying buttons in the Swift UI
 @IBDesignable extension UIButton {
 
     @IBInspectable var borderWidth: CGFloat {
