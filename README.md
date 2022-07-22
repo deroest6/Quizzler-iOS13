@@ -1,5 +1,5 @@
 
-#  Quizzler
+#  Quizzler 🧐
 
 ## Our Goal
 
